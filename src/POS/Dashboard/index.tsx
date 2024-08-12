@@ -96,6 +96,11 @@ const styles = css`
         align-items: center;
     }
 
+    > div > div {
+        max-height: 50vh;
+        padding: 1rem;
+    }
+
     > footer {
         border-top: 1px solid #eee;
         padding: 0.5rem 4vw;
