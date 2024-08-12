@@ -17,7 +17,7 @@ const getData = (): Domain | undefined => {
             .with(P.nullish, () => undefined)
             .otherwise(JSON.parse)
     } catch (err) {
-        console.error('Unable to get data.')
+        console.error('Unable to get data.', err)
         return undefined
     }
 }
@@ -27,7 +27,7 @@ const setData = (data: Domain) => {
         window.localStorage.setItem(LS_DATA_KEY, JSON.stringify(data))
         return data
     } catch (err) {
-        console.error('Unable to set data.')
+        console.error('Unable to set data.', err)
         return undefined
     }
 }

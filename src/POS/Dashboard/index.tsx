@@ -3,27 +3,7 @@ import { css } from '@emotion/react'
 import { FC } from 'react'
 import { usePOS } from '../usePos'
 import { SalesChart } from './Chart'
-import { State } from '../types'
-import { roundToTwo } from '../utils'
-
-type Acc = { [index: string]: number }
-
-const buildAnaltyics = (state: State) =>
-    Object.entries(
-        state.domain.sales.reduce((acc: Acc, sale) => {
-            const label = state.domain.cashiers.find(
-                ({ id }) => id === sale.cashierId
-            )?.name
-            const prev = (label && acc[label]) || 0
-            const next = roundToTwo(prev + sale.saleAmount)
-            return label
-                ? {
-                      ...acc,
-                      [label]: next,
-                  }
-                : acc
-        }, {})
-    ).map(([label, value]) => ({ label, value }))
+import { buildAnaltyics } from '../utils'
 
 const Dashboard: FC = () => {
     const { state, dispatch } = usePOS()
