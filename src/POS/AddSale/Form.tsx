@@ -1,11 +1,9 @@
 import { FC, useState } from 'react'
 import { Product } from '../types'
 import { css } from '@emotion/react'
-import { Unstable_NumberInput as NumberInput } from '@mui/base/Unstable_NumberInput'
-import { Button, FormControl, IconButton } from '@mui/material'
+import { Button, FormControl } from '@mui/material'
 import { calculateItemTotal, calculateSaleAmount } from '../utils'
-import ArrowUpward from '@mui/icons-material/ArrowUpward'
-import ArrowDownward from '@mui/icons-material/ArrowDownward'
+import { NumberInput } from '../../comps/NumberInput'
 
 type Props = {
     products: Product[]
@@ -42,11 +40,10 @@ const AddSaleForm: FC<Props> = ({ products, onSubmit }) => {
                             <NumberInput
                                 value={qty}
                                 step={1}
-                                aria-label="Product quantity"
+                                ariaLabel="Product quantity"
                                 min={0}
                                 shiftMultiplier={10}
-                                onChange={(_, value) => {
-                                    const qty = value || 0
+                                onChange={qty => {
                                     setItems(prev =>
                                         prev.map(item =>
                                             item.product.sku === product.sku
@@ -58,75 +55,30 @@ const AddSaleForm: FC<Props> = ({ products, onSubmit }) => {
                                         )
                                     )
                                 }}
-                                onInputChange={({
-                                    currentTarget: { value },
-                                }) => {
-                                    const qty = value ? parseInt(value) : 0
+                                onIncrement={() =>
                                     setItems(prev =>
                                         prev.map(item =>
                                             item.product.sku === product.sku
                                                 ? {
                                                       product: item.product,
-                                                      qty,
+                                                      qty: item.qty + 1,
                                                   }
                                                 : item
                                         )
                                     )
-                                }}
-                                slots={{
-                                    root: 'aside',
-                                    incrementButton: () => (
-                                        <IconButton
-                                            data-cy="add-sale-item-increment"
-                                            className="increment"
-                                            size="small"
-                                            onClick={() =>
-                                                setItems(prev =>
-                                                    prev.map(item =>
-                                                        item.product.sku ===
-                                                        product.sku
-                                                            ? {
-                                                                  product:
-                                                                      item.product,
-                                                                  qty:
-                                                                      item.qty +
-                                                                      1,
-                                                              }
-                                                            : item
-                                                    )
-                                                )
-                                            }
-                                        >
-                                            <ArrowUpward />
-                                        </IconButton>
-                                    ),
-                                    decrementButton: () => (
-                                        <IconButton
-                                            data-cy="add-sale-item-decrement"
-                                            className="decrement"
-                                            size="small"
-                                            onClick={() =>
-                                                setItems(prev =>
-                                                    prev.map(item =>
-                                                        item.product.sku ===
-                                                        product.sku
-                                                            ? {
-                                                                  product:
-                                                                      item.product,
-                                                                  qty:
-                                                                      item.qty -
-                                                                      1,
-                                                              }
-                                                            : item
-                                                    )
-                                                )
-                                            }
-                                            disabled={qty < 1}
-                                        >
-                                            <ArrowDownward />
-                                        </IconButton>
-                                    ),
-                                }}
+                                }
+                                onDecrement={() =>
+                                    setItems(prev =>
+                                        prev.map(item =>
+                                            item.product.sku === product.sku
+                                                ? {
+                                                      product: item.product,
+                                                      qty: item.qty - 1,
+                                                  }
+                                                : item
+                                        )
+                                    )
+                                }
                             />
                             <p>
                                 Total: ${calculateItemTotal({ product, qty })}
