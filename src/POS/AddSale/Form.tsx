@@ -26,7 +26,11 @@ const AddSaleForm: FC<Props> = ({ products, onSubmit }) => {
         <FormControl css={styles}>
             <ul>
                 {items.map(({ product, qty }) => (
-                    <li css={rowStyles} key={product.sku}>
+                    <li
+                        data-cy="add-sale-item"
+                        css={rowStyles}
+                        key={product.sku}
+                    >
                         <header>
                             <div>
                                 <h3>{product.name}</h3>
@@ -73,6 +77,7 @@ const AddSaleForm: FC<Props> = ({ products, onSubmit }) => {
                                     root: 'aside',
                                     incrementButton: () => (
                                         <IconButton
+                                            data-cy="add-sale-item-increment"
                                             className="increment"
                                             size="small"
                                             onClick={() =>
@@ -97,6 +102,7 @@ const AddSaleForm: FC<Props> = ({ products, onSubmit }) => {
                                     ),
                                     decrementButton: () => (
                                         <IconButton
+                                            data-cy="add-sale-item-decrement"
                                             className="decrement"
                                             size="small"
                                             onClick={() =>
@@ -131,6 +137,7 @@ const AddSaleForm: FC<Props> = ({ products, onSubmit }) => {
             </ul>
             <footer>
                 <Button
+                    data-cy="add-sale-submit"
                     variant="contained"
                     onClick={() => onSubmit(calculateSaleAmount(items))}
                 >

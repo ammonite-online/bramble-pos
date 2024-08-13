@@ -28,6 +28,7 @@ const Dashboard: FC = () => {
             </div>
             <footer>
                 <Button
+                    data-cy="switch-to-cashier-selection"
                     variant="outlined"
                     onClick={() => {
                         dispatch({
@@ -39,6 +40,7 @@ const Dashboard: FC = () => {
                     Switch cashier
                 </Button>
                 <Button
+                    data-cy="switch-to-add-sale"
                     variant="contained"
                     onClick={() => {
                         dispatch({

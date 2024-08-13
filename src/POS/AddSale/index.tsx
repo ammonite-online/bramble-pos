@@ -10,6 +10,7 @@ const AddSale: FC = () => {
         <div css={styles}>
             <header>
                 <Button
+                    data-cy="back-to-dashboard"
                     variant="outlined"
                     onClick={() => {
                         dispatch({

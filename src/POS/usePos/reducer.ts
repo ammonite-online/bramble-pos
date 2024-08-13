@@ -34,7 +34,6 @@ const handleSelectCashier =
                     selectedCashier: prev?.domain.cashiers.find(
                         ({ id }) => id === payload.cashierId
                     ),
-                    screen: 'dashboard' as const,
                 },
             }))
 

@@ -1,15 +1,15 @@
 import { FC } from 'react'
 import {
+    Button,
     FormControl,
     FormControlLabel,
     FormLabel,
     Radio,
     RadioGroup,
 } from '@mui/material'
-import { usePOS } from './usePos'
+import { usePOS } from '../usePos'
 import { match, P } from 'ts-pattern'
-import { css  } from '@emotion/react'
-
+import { css } from '@emotion/react'
 
 const CashierSelection: FC = () => {
     const { state, dispatch } = usePOS()
@@ -47,6 +47,20 @@ const CashierSelection: FC = () => {
                             />
                         ))}
                     </RadioGroup>
+                    <footer>
+                        <Button
+                            data-cy="accept-cashier-selection"
+                            variant="contained"
+                            onClick={() => {
+                                dispatch({
+                                    type: 'SwitchScreen',
+                                    payload: { screen: 'dashboard' },
+                                })
+                            }}
+                        >
+                            Accept
+                        </Button>
+                    </footer>
                 </FormControl>
             </div>
         </div>
@@ -60,12 +74,18 @@ const styles = css`
     justify-content: center;
     align-items: center;
     background: linear-gradient(175deg, #eee, #ddd);
-    
+
     > div {
         background-color: #fff;
         border: 1px solid #eee;
         padding: 1rem 1.5rem;
         border-radius: 0.5rem;
+    }
+
+    footer {
+        padding-top: 1rem;
+        display: flex;
+        justify-content: center;
     }
 `
 
