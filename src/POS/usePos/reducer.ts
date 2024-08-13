@@ -7,7 +7,6 @@ import {
     State,
     SwitchScreen,
 } from '../types'
-import { setData } from './dataAccess'
 
 const handleInitState =
     (prev: State | undefined) =>
@@ -68,20 +67,17 @@ const handleAddSale =
                                       },
                                   ]
                                 : prev.domain.sales
-                        return match(
-                            setData({
-                                ...prev.domain,
-                                sales,
-                            })
-                        )
-                            .with(P.nullish, () => undefined)
-                            .otherwise(domain => ({
-                                domain,
-                                ui: {
-                                    ...prev.ui,
-                                    screen: 'dashboard' as const,
-                                },
-                            }))
+                        const domain = {
+                            ...prev.domain,
+                            sales,
+                        }
+                        return {
+                            domain,
+                            ui: {
+                                ...prev.ui,
+                                screen: 'dashboard' as const,
+                            },
+                        }
                     })
                     .otherwise(() => prev)
             )

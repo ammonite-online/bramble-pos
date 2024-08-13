@@ -2,7 +2,7 @@ import { Avatar, Button } from '@mui/material'
 import { css } from '@emotion/react'
 import { FC } from 'react'
 import { usePOS } from '../usePos'
-import { SalesChart } from './Chart'
+import { SalesChart } from '../../comps/Chart'
 import { buildAnaltyics } from '../utils'
 
 const Dashboard: FC = () => {
@@ -24,7 +24,7 @@ const Dashboard: FC = () => {
                 </Avatar>
             </header>
             <div>
-                <SalesChart bars={buildAnaltyics(state)} />
+                <SalesChart bars={buildAnaltyics(state.domain)} />
             </div>
             <footer>
                 <Button

@@ -1,4 +1,4 @@
-import { Product, State } from './types'
+import { Domain, Product } from './types'
 
 const roundToTwo = (input: number) => parseFloat(input.toFixed(2))
 
@@ -17,14 +17,14 @@ type CalculateItemTotal = (item: Item) => number
 const calculateItemTotal: CalculateItemTotal = ({ product, qty }) =>
     roundToTwo(product.price * qty)
 
-type BuildAnalytics = (state: State) => {
+type BuildAnalytics = (domain: Pick<Domain, 'cashiers' | 'sales'>) => {
     label: string
     value: number
 }[]
-const buildAnaltyics: BuildAnalytics = state =>
+const buildAnaltyics: BuildAnalytics = domain =>
     Object.entries(
-        state.domain.sales.reduce((acc: { [index: string]: number }, sale) => {
-            const label = state.domain.cashiers.find(
+        domain.sales.reduce((acc: { [index: string]: number }, sale) => {
+            const label = domain.cashiers.find(
                 ({ id }) => id === sale.cashierId
             )?.name
             const prev = (label && acc[label]) || 0
