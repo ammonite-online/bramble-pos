@@ -22,6 +22,12 @@ const SalesChart: FC<Props> = ({ bars }) => (
                 data: bars.map(({ value }) => value),
             },
         ]}
+        margin={{
+            left: 80,
+            right: 60,
+            top: 80,
+            bottom: 80,
+        }}
     />
 )
 
